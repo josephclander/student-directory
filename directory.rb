@@ -57,7 +57,7 @@ def search_length(full_list)
   puts 'For all, hit return'
   input = gets.chomp.to_i
   new_list = full_list
-  new_list = full_list.select { |student| student[:name].length < input } if input != ''
+  new_list = full_list.select { |student| student[:name].length < input } if input != 0
   new_list
 end
 
