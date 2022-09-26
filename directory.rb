@@ -51,8 +51,19 @@ def search_letter(full_list)
   new_list
 end
 
+# assume input is integer character
+def search_length(full_list)
+  puts 'Print names less than <number> letters?'
+  puts 'For all, hit return'
+  input = gets.chomp.to_i
+  new_list = full_list
+  new_list = full_list.select { |student| student[:name].length < input } if input != ''
+  new_list
+end
+
 students = input_students
 letter_list = search_letter(students)
+length_list = search_length(letter_list)
 print_header
-print(letter_list)
+print(length_list)
 print_footer(students)
