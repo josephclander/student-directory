@@ -40,17 +40,17 @@ def input_students
     questions = %w[name age pob cohort]
     questions.each do |question|
       puts question.capitalize.green
-      answer = gets.chomp
+      answer = gets.gsub!(/$\n/, '')
       answer = 'unknown' if answer == ''
       student[question.to_sym] = answer
     end
     students.push(student)
     puts "Now we have #{students.count} student#{students.count == 1 ? '' : 's'}"
     puts 'Finished? y/n'.green
-    finished = gets.chomp
+    finished = gets.gsub!(/$\n/, '')
     until %w[y n].include?(finished)
       puts 'Finished? y/n'.green
-      finished = gets.chomp
+      finished = gets.gsub!(/$\n/, '')
     end
     stop = true if finished == 'y'
   end
@@ -60,7 +60,7 @@ end
 def search_letter(full_list)
   puts 'Print names beginning with letter?'.green
   puts 'For all, hit return'.green
-  input = gets.chomp
+  input = gets.gsub!(/$\n/, '')
   new_list = full_list
   new_list = full_list.select { |student| student[:name][0].downcase == input.downcase } if input != ''
   new_list
@@ -70,7 +70,7 @@ end
 def search_length(full_list)
   puts 'Print names less than <number> letters?'.green
   puts 'For all, hit return'.green
-  input = gets.chomp.to_i
+  input = gets.gsub!(/$\n/, '').to_i
   new_list = full_list
   new_list = full_list.select { |student| student[:name].length < input } if input != 0
   new_list
@@ -81,7 +81,7 @@ def search_info(full_list)
   puts 'Choose only one category?'.green
   puts 'age | pob | cohort'.red
   puts 'For all, hit return'.green
-  input = gets.chomp
+  input = gets.gsub!(/$\n/, '')
   new_list = full_list
   if input != 0 && %w[age pob cohort].include?(input)
     new_list = full_list.map do |student|
