@@ -1,19 +1,17 @@
-# students = [
-#   { name: 'Dr. Hannibal Lecter', cohort: :november },
-#   { name: 'Darth Vader', cohort: :november },
-#   { name: 'Nurse Ratched', cohort: :november },
-#   { name: 'Michael Corleone', cohort: :november },
-#   { name: 'Alex DeLarge', cohort: :november },
-#   { name: 'The Wicked Witch of the West', cohort: :november },
-#   { name: 'Terminator', cohort: :november },
-#   { name: 'Freddy Krueger', cohort: :november },
-#   { name: 'The Joker', cohort: :november },
-#   { name: 'Joffrey Baratheon', cohort: :november },
-#   { name: 'Norman Bates', cohort: :november }
-# ]
+# add colors to String
+class String
+  def red
+    "\e[31m#{self}\e[0m"
+  end
+
+  def green
+    "\e[32m#{self}\e[0m"
+  end
+end
+
 def print_header
   puts 'The students of Villains Academy'
-  puts '-------------'
+  puts '-------------'.red
 end
 
 def print(students)
@@ -21,7 +19,7 @@ def print(students)
   while index < students.size
     student = students[index]
     # student = { name: name, age: age, pob: pob, cohort: :november }
-    details = student.map { |key, value| "#{key}: #{value}" }
+    details = student.map { |key, value| "#{key}: ".green + "#{value}" }
     puts "#{index + 1}. " + details.join(', ')
     index += 1
   end
@@ -32,24 +30,24 @@ def print_footer(students)
 end
 
 def input_students
-  puts 'Please enter the details of the students'
-  puts 'To finish, just hit return twice'
+  puts 'Please enter the details of the students'.green
+  puts 'To finish, just hit return twice'.green
 
   students = []
   stop = false
   until stop
-    puts 'Name:'
+    puts 'Name:'.green
     name = gets.chomp
-    puts 'Age:'
+    puts 'Age:'.green
     age = gets.chomp
-    puts 'Country of Birth:'
-    pob = gets.chomp
+    puts 'Country of Birth:'.green
+    pob = gets.chomp.green
     students << { name: name, age: age, pob: pob, cohort: :november }
     puts "Now we have #{students.count} students"
-    puts 'Finished? y/n'
+    puts 'Finished? y/n'.green
     finished = gets.chomp
     until %w[y n].include?(finished)
-      puts 'Finished? y/n'
+      puts 'Finished? y/n'.green
       finished = gets.chomp
     end
     stop = true if finished == 'y'
@@ -58,8 +56,8 @@ def input_students
 end
 
 def search_letter(full_list)
-  puts 'Print names beginning with letter?'
-  puts 'For all, hit return'
+  puts 'Print names beginning with letter?'.green
+  puts 'For all, hit return'.green
   input = gets.chomp
   new_list = full_list
   new_list = full_list.select { |student| student[:name][0].downcase == input.downcase } if input != ''
@@ -68,8 +66,8 @@ end
 
 # assume input is integer character
 def search_length(full_list)
-  puts 'Print names less than <number> letters?'
-  puts 'For all, hit return'
+  puts 'Print names less than <number> letters?'.green
+  puts 'For all, hit return'.green
   input = gets.chomp.to_i
   new_list = full_list
   new_list = full_list.select { |student| student[:name].length < input } if input != 0
