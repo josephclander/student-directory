@@ -37,13 +37,27 @@ def save_students
 end
 
 # load student data from  file
-def load_students
-  file = File.open('student.csv', 'r')
+def load_students(filename = 'student.csv')
+  file = File.open(filename, 'r')
   file.readlines.each do |line|
     name, age, birthplace, cohort = line.chomp.split(',')
     @students << { name: name, age: age, birthplace: birthplace, cohort: cohort }
   end
   file.close
+end
+
+# try and load student data
+def try_load_students
+  filename = ARGV.first
+  return if filename.nil?
+
+  if File.exist?(filename)
+    load_students(filename)
+    puts "Loaded #{students.size} students from #{filename}"
+  else
+    puts "Sorry, #{filename} doesn't exist"
+    exit
+  end
 end
 
 # run filters and retur the updated list
@@ -78,7 +92,7 @@ end
 def interactive_menu
   loop do
     print_menu
-    process(gets.chomp)
+    process($stdin.gets.chomp)
   end
 end
 
@@ -111,7 +125,7 @@ end
 
 def ask_name
   puts 'Name'.green
-  gets.gsub!(/$\n/, '')
+  $stdin.gets.gsub!(/$\n/, '')
 end
 
 def ask_questions(name)
@@ -120,7 +134,7 @@ def ask_questions(name)
   questions = %w[age birthplace cohort]
   questions.each do |question|
     puts question.capitalize.green
-    answer = gets.gsub!(/$\n/, '')
+    answer = $stdin.gets.gsub!(/$\n/, '')
     answer = 'unknown' if answer == ''
     student[question.to_sym] = answer
   end
@@ -141,10 +155,10 @@ end
 
 def check_finished
   puts 'Finished? y/n'.green
-  finished = gets.gsub!(/$\n/, '')
+  finished = $stdin.gets.gsub!(/$\n/, '')
   until %w[y n].include?(finished)
     puts 'Finished? y/n'.green
-    finished = gets.gsub!(/$\n/, '')
+    finished = $stdin.gets.gsub!(/$\n/, '')
   end
   finished == 'y'
 end
@@ -163,7 +177,7 @@ end
 def search_letter(list)
   puts 'Print names beginning with letter?'.green
   puts 'For all, hit return'.green
-  input = gets.gsub!(/$\n/, '')
+  input = $stdin.gets.gsub!(/$\n/, '')
   new_list = list
   new_list = list.select { |student| student[:name][0].downcase == input.downcase } if input != ''
   new_list
@@ -174,7 +188,7 @@ def search_length(list)
   puts 'Print names less than <number> letters?'.green
   puts 'For all, hit return'.green
   # assume input is integer character
-  input = gets.gsub!(/$\n/, '').to_i
+  input = $stdin.gets.gsub!(/$\n/, '').to_i
   new_list = list
   new_list = list.select { |student| student[:name].length < input } if input != 0
   new_list
@@ -198,10 +212,11 @@ def search_info(list)
   puts 'Choose only one category?'.green
   puts 'age | birthplace | cohort'.red
   puts 'For all, hit return'.green
-  input = gets.gsub!(/$\n/, '')
+  input = $stdin.gets.gsub!(/$\n/, '')
   new_list = list
   new_list = filter_by_group(list, input) if input != 0 && %w[age birthplace cohort].include?(input)
   new_list
 end
 
+load_students
 interactive_menu
