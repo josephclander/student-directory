@@ -36,19 +36,15 @@ def input_students
   students = []
   stop = false
   until stop
-    puts 'Name:'.green
-    name = gets.chomp
-    name = 'unknown' if name == ''
-    puts 'Age:'.green
-    age = gets.chomp
-    age = 'unknown' if age == ''
-    puts 'Country of Birth:'.green
-    pob = gets.chomp
-    pob = 'unknown' if pob == ''
-    puts 'Cohort:'.green
-    cohort = gets.chomp
-    cohort = 'unknown' if cohort == ''
-    students << { name: name, age: age, pob: pob, cohort: cohort }
+    student = {}
+    questions = %w[name age pob cohort]
+    questions.each do |question|
+      puts question.capitalize.green
+      answer = gets.chomp
+      answer = 'unknown' if answer == ''
+      student[question.to_sym] = answer
+    end
+    students.push(student)
     puts "Now we have #{students.count} students"
     puts 'Finished? y/n'.green
     finished = gets.chomp
