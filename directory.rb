@@ -11,7 +11,7 @@ end
 
 def print_header
   puts ' The students of Villains Academy '.center(42, '*')
-  puts '-----------------------------------------_'.red
+  puts '------------------------------------------'.red
 end
 
 def print(students)
@@ -38,11 +38,17 @@ def input_students
   until stop
     puts 'Name:'.green
     name = gets.chomp
+    name = 'unknown' if name == ''
     puts 'Age:'.green
     age = gets.chomp
+    age = 'unknown' if age == ''
     puts 'Country of Birth:'.green
-    pob = gets.chomp.green
-    students << { name: name, age: age, pob: pob, cohort: :november }
+    pob = gets.chomp
+    pob = 'unknown' if pob == ''
+    puts 'Cohort:'.green
+    cohort = gets.chomp
+    cohort = 'unknown' if cohort == ''
+    students << { name: name, age: age, pob: pob, cohort: cohort }
     puts "Now we have #{students.count} students"
     puts 'Finished? y/n'.green
     finished = gets.chomp
