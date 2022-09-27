@@ -15,8 +15,11 @@ def print_header
 end
 
 def print(students)
+  amount = students.size
+  return 'No students' if amount.zero?
+
   index = 0
-  while index < students.size
+  while index < amount
     student = students[index]
     # student = { name: name, age: age, pob: pob, cohort: cohort }
     details = student.map { |key, value| "#{key}: ".green + "#{value}" }
@@ -37,15 +40,21 @@ def input_students
   stop = false
   until stop
     student = {}
-    questions = %w[name age pob cohort]
-    questions.each do |question|
-      puts question.capitalize.green
-      answer = gets.gsub!(/$\n/, '')
-      answer = 'unknown' if answer == ''
-      student[question.to_sym] = answer
+    puts 'Name'.green
+    answer = gets.gsub!(/$\n/, '')
+    if answer != ''
+      questions = %w[age pob cohort]
+      questions.each do |question|
+        puts question.capitalize.green
+        answer = gets.gsub!(/$\n/, '')
+        answer = 'unknown' if answer == ''
+        student[question.to_sym] = answer
+      end
+      students.push(student)
+      puts "Now we have #{students.count} student#{students.count == 1 ? '' : 's'}"
+    else
+      puts 'No student entered'
     end
-    students.push(student)
-    puts "Now we have #{students.count} student#{students.count == 1 ? '' : 's'}"
     puts 'Finished? y/n'.green
     finished = gets.gsub!(/$\n/, '')
     until %w[y n].include?(finished)
