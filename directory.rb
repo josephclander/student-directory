@@ -20,7 +20,9 @@ def print(students)
   index = 0
   while index < students.size
     student = students[index]
-    puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
+    # student = { name: name, age: age, pob: pob, cohort: :november }
+    details = student.map { |key, value| "#{key}: #{value}" }
+    puts "#{index + 1}. " + details.join(', ')
     index += 1
   end
 end
@@ -30,17 +32,27 @@ def print_footer(students)
 end
 
 def input_students
-  puts 'Please enter the names of the students'
+  puts 'Please enter the details of the students'
   puts 'To finish, just hit return twice'
 
   students = []
-
-  name = gets.chomp
-
-  until name.empty? ## this works as enter twice gives empty
-    students << { name: name, cohort: :november }
-    puts "Now we have #{students.count} students"
+  stop = false
+  until stop
+    puts 'Name:'
     name = gets.chomp
+    puts 'Age:'
+    age = gets.chomp
+    puts 'Country of Birth:'
+    pob = gets.chomp
+    students << { name: name, age: age, pob: pob, cohort: :november }
+    puts "Now we have #{students.count} students"
+    puts 'Finished? y/n'
+    finished = gets.chomp
+    until %w[y n].include?(finished)
+      puts 'Finished? y/n'
+      finished = gets.chomp
+    end
+    stop = true if finished == 'y'
   end
   students
 end
