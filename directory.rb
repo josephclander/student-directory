@@ -45,7 +45,7 @@ def input_students
       student[question.to_sym] = answer
     end
     students.push(student)
-    puts "Now we have #{students.count} students"
+    puts "Now we have #{students.count} student#{students.count == 1 ? '' : 's'}"
     puts 'Finished? y/n'.green
     finished = gets.chomp
     until %w[y n].include?(finished)
