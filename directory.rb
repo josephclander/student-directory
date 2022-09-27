@@ -20,6 +20,7 @@ def print_menu
   puts '1. Input the students'.green
   puts '2. Show the students'
   puts '3. Save the list to students.csv'
+  puts '4. Load the list from students.csv'
   puts '9. Exit'.red # 9 because we'll be adding more items
   puts ' '
 end
@@ -31,6 +32,16 @@ def save_students
     student_data = [student[:name], student[:age], student[:birthplace], student[:cohort]]
     csv_line = student_data.join(',')
     file.puts csv_line
+  end
+  file.close
+end
+
+# load student data from  file
+def load_students
+  file = File.open('student.csv', 'r')
+  file.readlines.each do |line|
+    name, age, birthplace, cohort = line.chomp.split(',')
+    @students << { name: name, age: age, birthplace: birthplace, cohort: cohort }
   end
   file.close
 end
@@ -56,6 +67,7 @@ def process(selection)
   when '1' then input_students
   when '2' then print_students_list
   when '3' then save_students
+  when '4' then load_students
   when '9' then exit
   else
     puts "I don't know what you meant, try again"
