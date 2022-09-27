@@ -10,8 +10,8 @@ class String
 end
 
 def print_header
-  puts 'The students of Villains Academy'
-  puts '-------------'.red
+  puts ' The students of Villains Academy '.center(42, '*')
+  puts '-----------------------------------------_'.red
 end
 
 def print(students)
