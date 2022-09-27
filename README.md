@@ -4,6 +4,8 @@ The student directory script allows you to manage the list of students enrolled 
 
 ## How to use
 
+From the root directory of the project run:
+
 ```shell
 ruby directory.rb
 ```
@@ -12,38 +14,36 @@ ruby directory.rb
 
 These have been added to the project issues:
 
-- [x] Print names with index
-      #1 opened 13 minutes ago by josephclander
+1. [x] Print names with index
 
-- [x] Print names that begin with a certain letter
-      #2 opened 13 minutes ago by josephclander
+2. [x] Print names that begin with a certain letter
 
-- [x] Only print names shorter than 12 characters
-      #3 opened 12 minutes ago by josephclander
+3. [x] Only print names shorter than 12 characters
 
-- [x] Refactor each() to while or until loop
-      #4 opened 11 minutes ago by josephclander
+4. [x] Refactor each() to while or until loop
 
-- [x] Add more information to students
-      #5 opened 10 minutes ago by josephclander
+5. [x] Add more information to students
 
-- [x] Use center() with strings
-      #6 opened 9 minutes ago by josephclander
+6. [x] Use center() with strings
 
-- [x] Add input from user
-      #7 opened 9 minutes ago by josephclander
+7. [x] Add input from user
 
-- [x] Change the way the users are displayed
-      #8 opened 8 minutes ago by josephclander
+8. [x] Change the way the users are displayed
 
-- [x] Fix plural if only 1 student entered
-      #9 opened 7 minutes ago by josephclander
+9. [x] Fix plural if only 1 student entered
 
-- [x] Remove use of chomp()
-      #10 opened 7 minutes ago by josephclander
+10. [x] Remove use of chomp()
 
-- [x] Fix the errors.txt file w/o using a linter
-      #11 opened 3 minutes ago by josephclander
+11. [x] Fix the errors.txt file w/o using a linter
 
-- [x] Add edge case for printing empty list of students
-      #12 opened 2 minutes ago by josephclander
+12. [x] Add edge case for printing empty list of students
+
+13. [] Refactor load_students and input_students
+
+14. [] Add feedback for menu options
+
+15. [] Add variables and defaults for filenames
+
+16. [] Refactor file read and write methods
+
+17. [] Add library for csv files
