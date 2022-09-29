@@ -31,12 +31,12 @@ def save_students
   puts "\nEnter a filename to save to".green
   filename = $stdin.gets.strip
   filename = filename == '' ? 'student.csv' : filename
-  file = File.open(filename, 'w')
-  @students.each do |student|
-    student_data = [student[:name], student[:age], student[:birthplace], student[:cohort]]
-    file.puts student_data.join(',')
+  File.open(filename, 'w') do |file|
+    @students.each do |student|
+      student_data = [student[:name], student[:age], student[:birthplace], student[:cohort]]
+      file.puts student_data.join(',')
+    end
   end
-  file.close
   # TODO: Is is possible to have error messages from this process?
   puts "\n📝 Saved #{@students.size} student#{@students.count == 1 ? '' : 's'} to ".green + filename.to_s.red
 end
@@ -49,12 +49,11 @@ def load_students(filename)
     filename = $stdin.gets.strip
     filename = filename == '' ? 'student.csv' : filename
   end
-  file = File.open(filename, 'r')
-  file.readlines.each do |line|
+  # Note this method does NOT return an array - we add to the @students array
+  File.foreach(filename) do |line|
     name, age, birthplace, cohort = line.chomp.split(',')
     @students << { name: name, age: age, birthplace: birthplace, cohort: cohort }
   end
-  file.close
   # TODO: Is is possible to have error messages from this process?
   puts "\n📝 Loaded #{@students.size} student#{@students.count == 1 ? '' : 's'} from ".green + filename.to_s.red
 end
