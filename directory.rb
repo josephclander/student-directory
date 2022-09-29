@@ -34,6 +34,8 @@ def save_students
     file.puts csv_line
   end
   file.close
+  # TODO: Is is possible to have error messages from this process?
+  puts "\n💾 Your data has been saved".green
 end
 
 # load student data from  file
@@ -44,6 +46,8 @@ def load_students(filename = 'student.csv')
     @students << { name: name, age: age, birthplace: birthplace, cohort: cohort }
   end
   file.close
+  # TODO: Is is possible to have error messages from this process?
+  puts "\n📝 Your data has been loaded".green
 end
 
 # try and load student data
@@ -53,7 +57,7 @@ def try_load_students
 
   if File.exist?(filename)
     load_students(filename)
-    puts "Loaded #{students.size} students from #{filename}"
+    puts "Loaded #{@students.size} student#{@students.count == 1 ? '' : 's'} from #{filename}"
   else
     puts "Sorry, #{filename} doesn't exist"
     exit
@@ -218,5 +222,5 @@ def search_info(list)
   new_list
 end
 
-load_students
+try_load_students
 interactive_menu
