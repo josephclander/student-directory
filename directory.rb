@@ -1,5 +1,6 @@
 # frozen_string_literal: false
 
+require 'csv'
 # add colors to String
 class String
   def red
@@ -31,10 +32,9 @@ def save_students
   puts "\nEnter a filename to save to".green
   filename = $stdin.gets.strip
   filename = filename == '' ? 'student.csv' : filename
-  File.open(filename, 'w') do |file|
+  CSV.open(filename, 'w') do |csv|
     @students.each do |student|
-      student_data = [student[:name], student[:age], student[:birthplace], student[:cohort]]
-      file.puts student_data.join(',')
+      csv << [student[:name], student[:age], student[:birthplace], student[:cohort]]
     end
   end
   # TODO: Is is possible to have error messages from this process?
@@ -49,10 +49,11 @@ def load_students(filename)
     filename = $stdin.gets.strip
     filename = filename == '' ? 'student.csv' : filename
   end
-  # Note this method does NOT return an array - we add to the @students array
-  File.foreach(filename) do |line|
-    name, age, birthplace, cohort = line.chomp.split(',')
-    @students << { name: name, age: age, birthplace: birthplace, cohort: cohort }
+  File.open(filename) do |file|
+    CSV.foreach(file) do |line|
+      name, age, birthplace, cohort = line
+      @students << { name: name, age: age, birthplace: birthplace, cohort: cohort }
+    end
   end
   # TODO: Is is possible to have error messages from this process?
   puts "\n📝 Loaded #{@students.size} student#{@students.count == 1 ? '' : 's'} from ".green + filename.to_s.red
