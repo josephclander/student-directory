@@ -19,27 +19,36 @@ def print_menu
   puts ' '
   puts '1. Input the students'.green
   puts '2. Show the students'
-  puts '3. Save the list to students.csv'
-  puts '4. Load the list from students.csv'
+  puts '3. Save the list to a file'
+  puts '4. Load the list from a file'
   puts '9. Exit'.red # 9 because we'll be adding more items
   puts ' '
 end
 
 # save student data to file
 def save_students
-  file = File.open('student.csv', 'w')
+  # we have the data so it's ok to overwrite it
+  puts "\nEnter a filename to save to".green
+  filename = $stdin.gets.strip
+  filename = filename == '' ? 'student.csv' : filename
+  file = File.open(filename, 'w')
   @students.each do |student|
     student_data = [student[:name], student[:age], student[:birthplace], student[:cohort]]
-    csv_line = student_data.join(',')
-    file.puts csv_line
+    file.puts student_data.join(',')
   end
   file.close
   # TODO: Is is possible to have error messages from this process?
-  puts "\n💾 Your data has been saved".green
+  puts "\n📝 Saved #{@students.size} student#{@students.count == 1 ? '' : 's'} to ".green + filename.to_s.red
 end
 
 # load student data from  file
-def load_students(filename = 'student.csv')
+def load_students(filename)
+  # HACK: Removed default in param so not asked file name on load
+  if filename.nil?
+    puts "\nEnter a filename to load from".green
+    filename = $stdin.gets.strip
+    filename = filename == '' ? 'student.csv' : filename
+  end
   file = File.open(filename, 'r')
   file.readlines.each do |line|
     name, age, birthplace, cohort = line.chomp.split(',')
@@ -47,7 +56,7 @@ def load_students(filename = 'student.csv')
   end
   file.close
   # TODO: Is is possible to have error messages from this process?
-  puts "\n📝 Your data has been loaded".green
+  puts "\n📝 Loaded #{@students.size} student#{@students.count == 1 ? '' : 's'} from ".green + filename.to_s.red
 end
 
 # try and load student data
@@ -57,7 +66,6 @@ def try_load_students
 
   if File.exist?(filename)
     load_students(filename)
-    puts "Loaded #{@students.size} student#{@students.count == 1 ? '' : 's'} from #{filename}"
   else
     puts "Sorry, #{filename} doesn't exist"
     exit
@@ -85,7 +93,7 @@ def process(selection)
   when '1' then input_students
   when '2' then print_students_list
   when '3' then save_students
-  when '4' then load_students
+  when '4' then load_students(nil)
   when '9' then exit
   else
     puts "I don't know what you meant, try again"
