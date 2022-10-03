@@ -17,13 +17,11 @@ end
 
 # print the menu and ask the user what to do
 def print_menu
-  puts ' '
-  puts '1. Input the students'.green
+  puts "\n1. Input the students".green
   puts '2. Show the students'
   puts '3. Save the list to a file'
   puts '4. Load the list from a file'
-  puts '9. Exit'.red # 9 because we'll be adding more items
-  puts ' '
+  puts "9. Exit\n".red
 end
 
 # save student data to file
