@@ -10,5 +10,5 @@ require_relative '_persistence'
 # global instance variables
 @students = []
 
-try_load_students
+try_load_students_start
 interactive_menu

@@ -17,12 +17,6 @@ end
 
 # load student data from  file
 def load_students(filename)
-  # HACK: Removed default in param so not asked file name on load
-  if filename.nil?
-    puts "\nEnter a filename to load from".green
-    filename = $stdin.gets.strip
-    filename = filename == '' ? 'student.csv' : filename
-  end
   File.open(filename) do |file|
     CSV.foreach(file) do |line|
       name, age, birthplace, cohort = line
@@ -33,15 +27,28 @@ def load_students(filename)
   puts "\n📝 Loaded #{@students.size} student#{@students.count == 1 ? '' : 's'} from ".green + filename.to_s.red
 end
 
-# try and load student data
-def try_load_students
+# try and load student data on boot
+def try_load_students_start
   filename = ARGV.first
   return if filename.nil?
 
+  load_students(filename) if filename_exist?(filename)
+end
+
+# try and load student data from menu
+def try_load_students_menu
+  puts "\nEnter a filename to load from".green
+  filename = $stdin.gets.strip
+  load_students(filename) if filename_exist?(filename)
+end
+
+# check for existing filename
+def filename_exist?(filename)
   if File.exist?(filename)
-    load_students(filename)
+    puts "OK, Loading from '#{filename}'...".green
+    true
   else
-    puts "Sorry, #{filename} doesn't exist"
-    exit
+    puts "Sorry, '#{filename}' doesn't exist".red
+    false
   end
 end
