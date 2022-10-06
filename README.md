@@ -38,12 +38,12 @@ These have been added to the project issues:
 
 12. [x] Add edge case for printing empty list of students
 
-13. [] Refactor load_students and input_students
+13. [x] Refactor load_students and input_students
 
-14. [] Add feedback for menu options
+14. [x] Add feedback for menu options
 
-15. [] Add variables and defaults for filenames
+15. [x] Add variables and defaults for filenames
 
-16. [] Refactor file read and write methods
+16. [x] Refactor file read and write methods
 
-17. [] Add library for csv files
+17. [x] Add library for csv files
