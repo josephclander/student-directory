@@ -2,6 +2,9 @@
 
 The student directory script allows you to manage the list of students enrolled at the Villains Academy.
 
+## Video Run-through
+[<img src="https://i3.ytimg.com/vi/pX4giEdtmp4/maxresdefault.jpg">](https://youtu.be/pX4giEdtmp4)
+
 ## How to use
 
 From the root directory of the project run:
